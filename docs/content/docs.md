@@ -842,8 +842,8 @@ will fall back to the default behaviour and log an error level message
 to the console. Note: Encrypted destinations are not supported
 by `--track-renames`.
 
-Note that `--track-renames` uses extra memory to keep track of all
-the rename candidates.
+Note that `--track-renames` is incompatible with `--no-traverse` and
+that it uses extra memory to keep track of all the rename candidates.
 
 Note also that `--track-renames` is incompatible with
 `--delete-before` and will select `--delete-after` instead of
@@ -1131,6 +1131,26 @@ In this mode, TLS is susceptible to man-in-the-middle attacks.
 This option defaults to `false`.
 
 **This should be used only for testing.**
+
+### --no-traverse ###
+
+The `--no-traverse` flag controls whether the destination file system
+is traversed when using the `copy` or `move` commands.
+`--no-traverse` is not compatible with `sync` and will be ignored if
+you supply it with `sync`.
+
+If you are only copying a small number of files and/or have a large
+number of files on the destination then `--no-traverse` will stop
+rclone listing the destination and save time.
+
+However, if you are copying a large number of files, especially if you
+are doing a copy where lots of the files haven't changed and won't
+need copying then you shouldn't use `--no-traverse`.
+
+It can also be used to reduce the memory usage of rclone when copying
+- `rclone --no-traverse copy src dst` won't load either the source or
+destination listings into memory so will use the minimum amount of
+memory.
 
 Filtering
 ---------

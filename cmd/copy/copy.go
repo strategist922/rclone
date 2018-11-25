@@ -51,7 +51,13 @@ written a trailing / - meaning "copy the contents of this directory".
 This applies to all commands and whether you are talking about the
 source or destination.
 
+See the ` + "`--no-traverse`" + ` option for controlling whether
+rclone lists the destination directory or not.  Supplying this option
+when copying a small number of files into a large destination can
+speed transfers up greatly.
+
 **Note**: Use the ` + "`-P`" + `/` + "`--progress`" + ` flag to view real-time transfer statistics
+
 `,
 	Run: func(command *cobra.Command, args []string) {
 		cmd.CheckArgs(2, 2, command, args)
